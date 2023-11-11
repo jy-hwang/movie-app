@@ -6,6 +6,6 @@ export default new Store({
   name: 'Jackie / Jae Yeon - Hwang ',
   email: 'devtestkorhjy89@gmail.com',
   github: 'https://github.com/jy-hwang',
-  repository: 'https://github.com/jy-hwang/apple-ipad',
+  repository: 'https://github.com/jy-hwang/movie-app',
   //blog: 'https://blog.naver.com/stratojy',
 });
