@@ -7,5 +7,5 @@ export default new Store({
   email: 'devtestkorhjy89@gmail.com',
   github: 'https://github.com/jy-hwang',
   repository: 'https://github.com/jy-hwang/apple-ipad',
-  blog: 'https://blog.naver.com/stratojy',
+  //blog: 'https://blog.naver.com/stratojy',
 });
