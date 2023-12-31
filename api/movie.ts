@@ -1,8 +1,9 @@
 import fetch from 'node-fetch';
+import {VercelRequest,VercelResponse} from '@vercel/node'
 
 const { APIKEY } = process.env;
 
-export default async function handler(request, response) {
+export default async function handler(request:VercelRequest, response:VercelResponse) {
   const { title, page, id } = JSON.parse(request.body);
   //prettier-ignore
   const url = id 

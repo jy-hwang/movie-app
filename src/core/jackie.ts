@@ -1,7 +1,22 @@
 /// Component ///
 
+interface ComponentPayload{
+  tagName?:string,
+  props?:{
+    [key:string]:unknown
+  },
+  state?:{
+    [key:string]:unknown
+  }
+}
+
 export class Component {
-  constructor(payload = {}) {
+public el
+public props
+public state
+
+
+  constructor(payload:ComponentPayload = {}) {
     //prettier-ignore
     const {
       tagName = "div",
@@ -21,7 +36,12 @@ export class Component {
 }
 
 // Router //
-function routeRender(routes) {
+interface Route{
+  path:string
+  component:typeof Component
+}
+type Routes = Route[];
+function routeRender(routes: Routes) {
   if (!location.hash) {
     history.replaceState(null, '', '/#/');
   }
@@ -32,6 +52,10 @@ function routeRender(routes) {
   // #/about?name=jackie
   const [hash, queryString = ''] = location.hash.split('?');
 
+interface Query{
+  [key:string]:string
+}
+
   //prettier-ignore
   const query = queryString
     .split("&")
@@ -39,18 +63,19 @@ function routeRender(routes) {
       const [key, value] = cur.split("=");
       acc[key] = value;
       return acc;
-    }, {});
+    }, {} as Query);
   history.replaceState(query, '');
 
   const currentRoute = routes.find((route) => new RegExp(`${route.path}/?$`).test(hash));
-
+if(routeView){
   routeView.innerHTML = '';
-  routeView.append(new currentRoute.component().el);
+  currentRoute && routeView.append(new currentRoute.component().el);
+}
 
   window.scrollTo(0, 0);
 }
 
-export function createRouter(routes) {
+export function createRouter(routes : Routes) {
   return function () {
     window.addEventListener('popstate', () => {
       routeRender(routes);
@@ -60,11 +85,16 @@ export function createRouter(routes) {
 }
 
 // Store //
-
-export class Store {
-  constructor(state) {
-    this.state = {};
-    this.observers = {};
+interface StoreObservers{
+  [key:string] : SubscribeSallback[]
+}
+interface SubscribeSallback{
+  (arg : unknown) :void
+}
+export class Store<S> {
+  public state = {} as S;
+  private observers = {} as StoreObservers;
+  constructor(state:S) {
     for (const key in state) {
       Object.defineProperty(this.state, key, {
         get: () => state[key], //state['message'],
@@ -77,7 +107,7 @@ export class Store {
       });
     }
   }
-  subscribe(key, cb) {
+  subscribe(key:string, cb:SubscribeSallback) {
     //prettier-ignore
     Array.isArray(this.observers[key])
      ? this.observers[key].push(cb)

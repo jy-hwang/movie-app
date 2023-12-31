@@ -1,8 +1,18 @@
 import { Component } from '../core/jackie';
 import Images from '../../assets/image/icon-36x36.png';
 
+interface State{
+  [key:string] : unknown
+  menues : {
+    name:string
+    href:string
+  }[]
+}
+
 export default class TheHeader extends Component {
-  constructor(props) {
+public state!: State
+
+  constructor() {
     super({
       tagName: 'header',
       state: {

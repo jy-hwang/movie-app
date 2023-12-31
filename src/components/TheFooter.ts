@@ -2,7 +2,7 @@ import { Component } from '../core/jackie';
 import aboutStore from '../store/about';
 
 export default class TheFooter extends Component {
-  constructor(props) {
+  constructor() {
     super({
       tagName: 'footer',
     });
