@@ -1,6 +1,6 @@
 {
   "name": "movie-app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "scripts": {
     "dev": "parcel ./index.html",
@@ -19,5 +19,6 @@
   },
   "dependencies": {
     "node-fetch": "^2.7.0"
-  }
+  },
+  "type": "module"
 }
